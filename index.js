@@ -9,20 +9,11 @@ function collect(value, previous) {
 program.on("--help", function() {
   console.log("");
   console.log("Examples:");
-  console.log('  $ wmon -f . -e "node server.js"');
+  console.log('  $ wmon -f . -e "node server.js" -x "js, json, py"');
   console.log('  $ wmon -f "src/" -e "node server.js"');
   console.log('  $ wmon -f "src/" -f public -e "node server.js"');
   console.log("  $ wmon -c wmon.config.json");
 });
-
-const defaults = {
-  exec: "node index.js",
-  filesToWatch: ["./"],
-  debounce: 10,
-  encoding: "utf8",
-  watchSubdirectories: true,
-  configFile: null
-};
 
 /* Command line rules */
 program
@@ -40,31 +31,32 @@ program
   )
   .option("-c, --config <path>", "Enter the path to a configuration file, there's no default.")
   .option(
-    "-d, --debounce <value>",
+    "-d, --saveDebounceDelay <value>",
     "Debounce delay between saves to avoid events from firing twice in milliseconds, default = 10"
   )
   .option("-E, --encoding", "Encoding of the files to watch, default is utf8")
   .option(
     "-s, --no-watchSubdirectories",
     "disable Watching subdirectories nested inside watched directories, enabled by default"
-  );
-
+  )
+  .option("-x, --ext <extensions>", 'Enter Extensions to watch separated by a comma Default: "js, json"');
 program.parse(process.argv);
 
-const exec = program.exec || defaults.exec;
-const filesToWatch = program.files.length > 0 ? program.files : defaults.filesToWatch;
-const debounce = program.debounce || defaults.debounce;
-const encoding = program.encoding || defaults.encoding;
-const watchSubdirectories = program.watchSubdirectories;
-const configFile = program.config;
-const adjustConfiguration = require("./lib");
-const watch = require("./lib/watch");
-const adjustedConfiguration = adjustConfiguration(
-  exec,
-  filesToWatch,
-  debounce,
-  encoding,
-  watchSubdirectories,
-  configFile
-);
-watch(adjustedConfiguration);
+const cliInput = {};
+cliInput.commandToExecute = program.exec;
+cliInput.filesToWatch = program.files;
+cliInput.extensionsToWatch = typeof program.ext === "string" && program.ext.length > 1 ? program.ext.split(",") : null;
+cliInput.saveDebounceDelay = program.saveDebounceDelay;
+cliInput.encoding = program.encoding;
+cliInput.watchSubdirectories = program.watchSubdirectories;
+cliInput.configurationFile = program.config;
+/* merge cli input and json configuration */
+const adjustConfiguration = require("./lib/config/adjustConfiguration");
+adjustConfiguration(cliInput)
+  .then(adjustedConfiguration => {
+    /* Initiate the watcher and start watching */
+    require("./lib")(adjustedConfiguration);
+  })
+  .catch(e => {
+    throw new Error(e);
+  });
