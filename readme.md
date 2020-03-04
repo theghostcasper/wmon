@@ -64,3 +64,7 @@ the saveDebounceDelay adds a delay between saves, to prevent the execution comma
 The configuration file should be in JSON format, and You should supply the configuration file as a command line argument. Config files have higher priority than the command line arguments.
 
 `wmon --config wmon.config.json`
+
+#Support
+
+The package is supported by Node version 12.0.0 and above.
