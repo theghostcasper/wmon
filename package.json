@@ -1,0 +1,21 @@
+{
+  "name": "wmon",
+  "version": "0.0.1",
+  "description": "Simple and Light nodemon alternative for windows users. It Implements the watch and restart functionality only.",
+  "main": "index.js",
+  "bin": {
+    "wmon": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "commander": "^4.1.1",
+    "ps-tree": "^1.2.0"
+  }
+}
