@@ -18,7 +18,7 @@ wmon was developed to be used in command line
 
 usage is very similar to nodemon
 
-`wmon -f -e`
+`wmon -f <file/directory> -e <command to execute>`
 
 For CLI options, use the -h, --help, or help argument
 
