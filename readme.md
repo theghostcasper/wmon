@@ -50,7 +50,16 @@ Here's an example of a configuration file
 
 the saveDebounceDelay adds a delay between saves, to prevent the execution command from being executed twice at the same time. By default it is set to 50ms, feel free to adjust it to your needs.
 
-`{ "exec": "node index.js", "ext": ["js", "python"], "files": ["./"], "saveDebounceDelay": 50, "encoding": "latin1", "watchSubdirectories": true }`
+```json
+{
+  "exec": "node index.js",
+  "ext": ["js", "python"],
+  "files": ["./"],
+  "saveDebounceDelay": 50,
+  "encoding": "latin1",
+  "watchSubdirectories": true
+}
+```
 
 The configuration file should be in JSON format, and You should supply the configuration file as a command line argument. Config files have higher priority than the command line arguments.
 
