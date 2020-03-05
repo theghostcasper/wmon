@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "chalk": "^3.0.0",
-    "commander": "^4.1.1"
+    "commander": "^4.1.1",
+    "node-watch": "^0.6.3"
   },
   "engines": {
     "node": ">=12.0.0"
