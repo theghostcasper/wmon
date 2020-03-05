@@ -65,6 +65,6 @@ The configuration file should be in JSON format, and You should supply the confi
 
 `wmon --config wmon.config.json`
 
-#Support
+# Support
 
-The package is supported by Node version 12.0.0 and above.
+The package is currently supported by Node version 12.0.0 and above.
