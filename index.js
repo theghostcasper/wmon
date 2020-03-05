@@ -40,6 +40,8 @@ program
     "disable Watching subdirectories nested inside watched directories, enabled by default"
   )
   .option("-x, --ext <extensions>", 'Enter Extensions to watch separated by a comma Default: "js, json"');
+
+program.version("1.1.0", "-v, --vers", "output the current version");
 program.parse(process.argv);
 
 const cliInput = {};
